@@ -1,0 +1,34 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary, #aaa);
+}
+
+.input {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border, #444);
+  background: transparent;
+  color: white;
+  font-size: 1rem;
+
+  &:focus {
+    outline: 2px solid var(--color-accent, #cbb2f5);
+    border-color: var(--color-accent, #cbb2f5);
+  }
+}
+
+.errorInput {
+  border-color: var(--color-error, #ff6b6b);
+}
+
+.errorMessage {
+  color: var(--color-error, #ff6b6b);
+  font-size: 0.8rem;
+}

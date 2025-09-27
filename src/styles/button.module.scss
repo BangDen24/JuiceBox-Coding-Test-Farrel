@@ -1,0 +1,28 @@
+.base {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.purple {
+  background: var(--color-purple, #cbb2f5);
+  color: black;
+}
+
+.black {
+  background: black;
+  color: white;
+}
+
+.white {
+  background: white;
+  color: black;
+}

@@ -1,158 +1,133 @@
 "use client";
 
-import Navbar from "@/components/ui/navbar";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
-import styles from "../styles/home.module.scss";
 import { Pagination } from "swiper/modules";
 import "swiper/css/pagination";
+import SLIDE_CONFIG from "@/config/slides-config";
+import Navbar from "@/components/ui/navbar";
+import OpeningSlide from "@/components/features/slides/openingSlides";
+import DescriptionSlide from "@/components/features/slides/descriptionSlides";
+import FormStep from "@/components/features/slides/multiStepForm";
+import FinishSlide from "@/components/features/slides/finishSlides";
 
-// Constants untuk easy maintenance
-const SLIDE_CONFIG = {
-  TOTAL_SLIDES: 4,
-  SLIDES: [
-    {
-      id: 0,
-      title: "Slide 1",
-      content: "Intro content...",
-      buttonText: "Get a Reality Check",
-      buttonStyle: "default"
-    },
-    {
-      id: 1, 
-      title: "Slide 2",
-      content: "Some explanation...",
-      buttonText: "Continue",
-      buttonStyle: "black"
-    },
-    {
-      id: 2,
-      title: "Slide 3", 
-      content: "More content...",
-      buttonText: "Continue",
-      buttonStyle: "black"
-    },
-    {
-      id: 3,
-      title: "Slide 4",
-      content: "Final slide content...",
-      buttonText: "Get Started", 
-      buttonStyle: "white"
-    }
-  ]
-} as const;
+import AnimationData from "@/components/features/animations/JB2G_Lottie.json";
 
 export default function Home() {
   const swiperRef = useRef<SwiperType>();
   const [activeIndex, setActiveIndex] = useState(0);
-  
-  // Ref untuk animations nanti
-  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const buttonRef = useRef<HTMLDivElement>(null);
+  const [formValues, setFormValues] = useState<Record<string, string>>({});
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [descIndex, setDescIndex] = useState(0);
 
-  // Current slide data
-  const currentSlide = SLIDE_CONFIG.SLIDES[activeIndex] || SLIDE_CONFIG.SLIDES[0];
+  const currentSlide = SLIDE_CONFIG.SLIDES[activeIndex];
 
-  // Button class mapping
-  const getButtonClass = (style: string) => {
-    const classMap = {
-      default: styles.nextButtonDefault,
-      black: styles.nextButtonBlack,
-      white: styles.nextButtonWhite
-    };
-    return classMap[style as keyof typeof classMap] || styles.nextButtonDefault;
-  };
-
-  // Handlers
-  const handleSlideChange = (swiper: SwiperType) => {
-    setActiveIndex(swiper.activeIndex);
-    // Hook untuk GSAP animations nanti
-    // animateSlideTransition(swiper.activeIndex);
-  };
-
+  // navigation handlers
   const handleNext = () => {
     if (activeIndex < SLIDE_CONFIG.TOTAL_SLIDES - 1) {
-      swiperRef.current?.slideNext();
+      setActiveIndex((prev) => prev + 1);
     }
-    // Hook untuk button animations nanti
-    // animateButtonClick();
   };
 
   const handleBack = () => {
-    swiperRef.current?.slidePrev();
+    if (currentSlide.type === "description") {
+      if (descIndex > 0) {
+        swiperRef.current?.slidePrev();
+        setActiveIndex((prev) => prev - 1);
+      } else {
+        setActiveIndex((prev) => prev - 1);
+      }
+    } else {
+      if (activeIndex > 0) {
+        setActiveIndex((prev) => prev - 1);
+      }
+    }
   };
 
   const handleRefresh = () => {
-    swiperRef.current?.slideTo(0);
+    setActiveIndex(0);
   };
 
-  // Setup refs untuk animations
-  const setSlideRef = (index: number) => (el: HTMLDivElement | null) => {
-    slideRefs.current[index] = el;
-  };
-
-  // Effect untuk initial animations nanti
-  useEffect(() => {
-    // Initial GSAP setup akan di sini
-    // setupInitialAnimations();
-  }, []);
-
-  // Effect untuk slide change animations nanti
-  useEffect(() => {
-    // GSAP slide transition animations akan di sini
-    // animateSlideContent(activeIndex);
-  }, [activeIndex]);
-
+  console.log(formValues);
   return (
-    <div className={styles.container}>
+    <div>
       <Navbar
         showBack={activeIndex > 0}
         onBack={handleBack}
         onRefresh={handleRefresh}
       />
 
-      <Swiper
-        onSwiper={(swiper) => (swiperRef.current = swiper)}
-        onSlideChange={handleSlideChange}
-        spaceBetween={50}
-        slidesPerView={1}
-        allowTouchMove={false}
-        className={styles.swiper}
-        modules={[Pagination]}
-        pagination={{ clickable: true }}
-      >
-        {SLIDE_CONFIG.SLIDES.map((slide, index) => (
-          <SwiperSlide key={slide.id} className={styles.slide}>
-            <div 
-              ref={setSlideRef(index)}
-              className={styles.slideContent}
-              data-slide={index}
-            >
-              <h1>{slide.title}</h1>
-              <p>{slide.content}</p>
-              
-              {/* Placeholder untuk Lottie animations nanti */}
-              <div className={styles.animationContainer}>
-                {/* Lottie component akan di sini */}
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {/* SWITCH BY SLIDE TYPE */}
+      {currentSlide.type === "opening" && (
+        <OpeningSlide
+          title={currentSlide.title}
+          content={currentSlide.content}
+          buttonText={currentSlide.buttonText}
+          onNext={handleNext}
+        />
+      )}
 
-      {/* Navigation Button */}
-      {activeIndex < SLIDE_CONFIG.TOTAL_SLIDES && (
-        <div 
-          ref={buttonRef}
-          className={getButtonClass(currentSlide.buttonStyle)}
-          data-button-style={currentSlide.buttonStyle}
+      {currentSlide.type === "description" && (
+        <Swiper
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+            swiper.slideTo(descIndex, 0);
+          }}
+          onSlideChange={(swiper) => setDescIndex(swiper.activeIndex)}
+          spaceBetween={50}
+          slidesPerView={1}
+          allowTouchMove={false}
+          modules={[Pagination]}
+          pagination={{ clickable: true }}
         >
-          <button onClick={handleNext}>
-            {currentSlide.buttonText}
-          </button>
-        </div>
+          {SLIDE_CONFIG.SLIDES.filter((s) => s.type === "description").map(
+            (slide) => (
+              <SwiperSlide key={slide.id}>
+                <DescriptionSlide
+                  title={slide.title}
+                  content={slide.content}
+                  buttonText={slide.buttonText}
+                  onNext={() => {
+                    if (swiperRef.current?.isEnd) {
+                      handleNext();
+                    } else {
+                      swiperRef.current?.slideNext();
+                      setActiveIndex((prev) => prev + 1);
+                    }
+                  }}
+                />
+              </SwiperSlide>
+            )
+          )}
+        </Swiper>
+      )}
+
+      {currentSlide.type === "form" && (
+        <FormStep
+          questionText={currentSlide.questionText}
+          inputType={currentSlide.inputType}
+          placeholder={currentSlide.placeholder}
+          initialValue={formValues[currentSlide.id] || ""} // kasih default
+          error={formErrors[currentSlide.id]}
+          buttonText={currentSlide.buttonText}
+          onNext={(val) => {
+            setFormValues({ ...formValues, [currentSlide.id]: val }); // save ke global
+            handleNext(); // lanjut slide
+          }}
+        />
+      )}
+
+      {currentSlide.type === "finish" && (
+        <FinishSlide
+          animationData={AnimationData}
+          title={currentSlide.title}
+          subtitle={currentSlide.subtitle}
+          buttonText={currentSlide.buttonText}
+          onFinish={handleNext}
+          formValues={formValues}
+        />
       )}
     </div>
   );

@@ -25,7 +25,6 @@ export default function FinishSlide({
         <Lottie animationData={animationData} loop={true} />
       </div>
 
-      {/* tampilkan hasil form */}
       <div className={styles.userInfo}>
         <p>Thanks, {formValues["name"]}! Now it&apos;s time to get a reality check.</p>
         This will take 2-3 minutes

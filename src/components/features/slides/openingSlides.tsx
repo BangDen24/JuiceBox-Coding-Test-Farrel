@@ -1,7 +1,6 @@
 // components/OpeningSlide.tsx
 "use client";
 
-import Hexagon from "@/components/ui/hexagon";
 import Button from "@/components/ui/button";
 import styles from "@/styles/openingslides.module.scss";
 

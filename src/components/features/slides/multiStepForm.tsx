@@ -53,11 +53,7 @@ export default function FormStep({
         onSubmit={handleSubmit}
       />
 
-      {/* <div className={styles.footer}>
-        <Button variant="purple" onClick={handleSubmit}>
-          {buttonText}
-        </Button>
-      </div> */}
+      
     </div>
   );
 }

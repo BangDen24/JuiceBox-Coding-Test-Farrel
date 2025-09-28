@@ -41,7 +41,6 @@ export default function Home() {
       if (descIndex < children.length - 1) {
         swiperRef.current?.slideNext();
       } else {
-        // Transisi dari description ke form
         if (nextSlide?.type === "form") {
           animateHexagonToLottie();
         } else {
@@ -66,7 +65,6 @@ export default function Home() {
       }
     });
 
-    // Animate hexagon out
     if (hexagonRef.current) {
       tl.to(hexagonRef.current, {
         scale: 0.3,
@@ -77,7 +75,6 @@ export default function Home() {
       });
     }
 
-    // Animate form in with delay
     if (formRef.current) {
       tl.from(formRef.current, {
         scale: 0.3,
@@ -85,7 +82,7 @@ export default function Home() {
         rotation: -180,
         duration: 0.8,
         ease: "power2.out"
-      }, "-=0.4"); // Overlap with hexagon animation
+      }, "-=0.4");
     }
   };
 
@@ -120,7 +117,6 @@ export default function Home() {
   const showBack =
     activeIndex > 0 || (currentSlide.type === "description" && descIndex > 0);
 
-  // Show hexagon for opening and description slides, or during transition
   const showHexagon = (
     currentSlide.type === "opening" || 
     currentSlide.type === "description" || 

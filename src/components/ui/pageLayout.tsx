@@ -7,7 +7,7 @@ interface PageLayoutProps {
   showBack?: boolean;
   onBack?: () => void;
   onRefresh?: () => void;
-  footer?: React.ReactNode; // bisa isi Button
+  footer?: React.ReactNode; 
 }
 
 export default function PageLayout({

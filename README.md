@@ -27,20 +27,6 @@ This project demonstrates a series of slides (opening, description, form, and fi
 
 ---
 
-## Project Structure
-src/
-├─ app/
-│ └─ page.tsx # Entry point
-├─ components/
-│ ├─ features/slides/ # Opening, Description, Form, Finish
-│ ├─ features/animations/ # Lottie JSON
-│ └─ ui/ # Navbar, TextInput, Button, etc.
-├─ config/
-│ └─ slides-config.ts # Slide order & data
-└─ styles/ # SCSS Modules
-
----
-
 ## Setup & Installation
 1. Clone the repository:
    ```bash

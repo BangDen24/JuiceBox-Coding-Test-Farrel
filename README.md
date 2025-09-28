@@ -49,7 +49,7 @@ src/
 2. Install dependencies:
    ```bash
     npm install
-  # or
+      or
     yarn install
 
 3. Run the development server

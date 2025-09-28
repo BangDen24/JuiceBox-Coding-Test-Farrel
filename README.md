@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Juicebox Onboarding Slides
 
-## Getting Started
+An interactive onboarding web app built with **Next.js, Swiper.js, Lottie, and GSAP**.  
+This project demonstrates a series of slides (opening, description, form, and finish) with smooth animations, transitions, and consistent UI.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
+- Opening slide with animated hexagon.
+- Description slides (3 sections) using **Swiper.js** with pagination.
+- Multi-step form (2 steps: name and email) with interactive inputs.
+- Finish slide with Lottie animation and user data summary.
+- Navigation with a custom navbar (Back & Refresh).
+- Advanced animations using **GSAP**.
+- Consistent visuals using hexagon as the core design element.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
+- [Next.js 14+](https://nextjs.org/) (App Router)
+- [React](https://react.dev/)
+- [Swiper.js](https://swiperjs.com/)
+- [Lottie-react](https://github.com/Gamote/lottie-react)
+- [GSAP](https://gsap.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [SCSS Modules](https://sass-lang.com/)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+---
 
-## Learn More
+## Project Structure
+src/
+├─ app/
+│ └─ page.tsx # Entry point
+├─ components/
+│ ├─ features/slides/ # Opening, Description, Form, Finish
+│ ├─ features/animations/ # Lottie JSON
+│ └─ ui/ # Navbar, TextInput, Button, etc.
+├─ config/
+│ └─ slides-config.ts # Slide order & data
+└─ styles/ # SCSS Modules
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Setup & Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/BangDen24/JuiceBox-Coding-Test.git
+   cd JuiceBox-Coding-Test
+2. Install dependencies:
+   ```bash
+    npm install
+  # or
+    yarn install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3. Run the development server
+   ```bash
+   git clone https://github.com/BangDen24/JuiceBox-Coding-Test.git
+   cd JuiceBox-Coding-Test  
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Usage
+- Use the Next button or the arrow inside the form input to proceed.
+- Use the Navbar Back button to return to the previous slide.
+- Click the refresh logo near the Juicebox logo to refresh and restart the onboarding process.
+
+## Roadmap
+- Improve animations and transitions with GSAP.
+- Optimize performance and loading time.
+- Make it ultra responsive by using percentage-based layout and scaling.
+- Explore more advanced Lenis configurations for smoother scrolling.

@@ -6,6 +6,41 @@
   padding: 0.75rem 1rem;
   background: transparent;
   height: 10vh;
+  width: 40%;
+    left: 30%;
+}
+
+.logo {
+  display: flex;
+  gap: 0.1rem;
+  align-items: flex-start;
+  cursor: pointer;
+  padding: 0.25rem;
+  overflow: hidden; 
+  position: relative;
+
+  svg:nth-child(2), // U
+  svg:nth-child(4), // C  
+  svg:nth-child(5), // E
+  svg:nth-child(7), // O
+  svg:nth-child(8) {
+    // X
+    align-self: center;
+  }
+
+  // Add transition for smooth transforms
+  svg {
+    transition: transform 0.1s ease;
+  }
+
+  // When hovered, J and B will be closer together
+  &:hover {
+    svg:nth-child(1), // J
+    svg:nth-child(6) {
+      // B
+      margin: 0 0.05rem; // Tighter spacing when side by side
+    }
+  }
 }
 
 .navLogo {
@@ -29,7 +64,7 @@
 
   &:hover {
     background: rgba(255, 255, 255, 0.1);
-    transform: rotateZ(360deg);
+    transform: rotateZ(-360deg);
     transition: transform 1.5s ease;
   }
 }
@@ -37,4 +72,15 @@
 .navButtonIcon {
   opacity: 1;
   transition: opacity 0.3s ease;
+}
+
+.spacer {
+  width: 46px; // Add this if you don't have it - maintains layout when back button is hidden
+}
+
+@media(max-width: 768px) {
+  .navbar {
+    width: 100%;
+    left: 0;
+  }
 }

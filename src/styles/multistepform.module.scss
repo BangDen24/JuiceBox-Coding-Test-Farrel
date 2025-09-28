@@ -1,12 +1,19 @@
 .container {
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
+  // justify-content: center;
   align-items: center;
-  justify-content: center;
+  height: 90vh;
+  width: 100%;
   text-align: center;
-  gap: 1.5rem;
-  padding: 2rem;
-  height: 100%;
+}
+
+.animation {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 2rem;
 }
 
 .icon {
@@ -20,12 +27,42 @@
 }
 
 .question {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-text, #fff);
+  font-size: 20px;
+  font-weight: 400;
+  color: #FAFAFA;
+  font-family: "Bagoss", sans-serif;
+  letter-spacing: 1%;
+  margin-bottom: 20vw
 }
 
 .footer {
-  margin-top: 2rem;
-  width: 100%;
+  position: absolute;
+  bottom: 5%;
+  width: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .container {
+    height: 80vh;
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .animation {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 16px;
+  }
+
+  .question {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .footer {
+    width: 90%;
+  }
 }

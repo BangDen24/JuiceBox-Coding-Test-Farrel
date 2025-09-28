@@ -14,15 +14,24 @@
 
 .purple {
   background: var(--color-purple, #cbb2f5);
-  color: black;
+  color: #0C0D10;
+  font-family: "Sohne", sans-serif;
+  font-weight: 400;
 }
 
 .black {
-  background: black;
+  background: #0C0D10;
   color: white;
+  border: 1px solid white;
+
+  font-family: "Sohne", sans-serif;
+  font-weight: 400;
 }
 
 .white {
   background: white;
-  color: black;
+  color: #0C0D10;
+
+  font-family: "Sohne", sans-serif;
+  font-weight: 400;
 }

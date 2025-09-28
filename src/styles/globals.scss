@@ -31,3 +31,18 @@ body {
     text-wrap: balance;
   }
 }
+
+
+@font-face {
+  font-family: 'Bagoss';
+  src: url('/fonts/BagossTRIALVF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sohne';
+  src: url('/fonts/Sohne-Buch.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}

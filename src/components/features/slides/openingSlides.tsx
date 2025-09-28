@@ -2,30 +2,62 @@
 "use client";
 
 import Hexagon from "@/components/ui/hexagon";
-import styles from "@/styles/openingslides.module.scss";
 import Button from "@/components/ui/button";
+import styles from "@/styles/openingslides.module.scss";
 
 interface OpeningSlideProps {
   title: string;
-  content: string;
   buttonText: string;
   onNext: () => void;
 }
 
 export default function OpeningSlide({
   title,
-  content,
   buttonText,
   onNext,
 }: OpeningSlideProps) {
+  const bullets = [
+    "WA businesses feel confident about future growth",
+    "AI can't replace creativity",
+    "Sales measure true success",
+    "Human connection drives WA business",
+    "The primary barrier to digital transformation is financial investment",
+  ];
+
+  const renderTitle = () => {
+    const words = title.split(" ");
+    return words
+      .map((word, index) => {
+        if (word.toLowerCase() === "technology") {
+          return (
+            <span key={index} className={styles.gradientText}>
+              {word}
+            </span>
+          );
+        }
+        return <span key={index}>{word}</span>;
+      })
+      .reduce((prev: (JSX.Element | string)[], curr: JSX.Element | string) => {
+        return [...prev, " ", curr];
+      }, [] as (JSX.Element | string)[]);
+  };
+
   return (
-    <div className={styles.container}>
-      <Hexagon variant="opening" animate />
-      <h1>{title}</h1>
-      <p>{content}</p>
-      <Button variant="purple" onClick={onNext}>
-        {buttonText}
-      </Button>
-    </div>
+    <main className={styles.openingWrapper}>
+      <div className={styles.container}>
+        <div className={styles.bulletsWrapper}>
+          <ul className={styles.bullets}>
+            {bullets.map((text, idx) => (
+              <li key={idx}>{text}</li>
+            ))}
+          </ul>
+        </div>
+
+        <h1 className={styles.title}>{renderTitle()}</h1>
+          <Button variant="purple" onClick={onNext}>
+            {buttonText}
+          </Button>
+      </div>
+    </main>
   );
 }

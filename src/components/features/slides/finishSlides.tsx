@@ -5,7 +5,7 @@ import styles from "@/styles/finishslides.module.scss";
 import Lottie from "lottie-react";
 
 interface FinishSlideProps {
-  animationData: object;  // JSON Lottie
+  animationData: object; 
   title: string;
   subtitle?: string;
   buttonText: string;
@@ -15,8 +15,6 @@ interface FinishSlideProps {
 
 export default function FinishSlide({
   animationData,
-  title,
-  subtitle,
   buttonText,
   onFinish,
   formValues = {},
@@ -27,12 +25,9 @@ export default function FinishSlide({
         <Lottie animationData={animationData} loop={true} />
       </div>
 
-      <h1 className={styles.title}>{title}</h1>
-      {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-
       {/* tampilkan hasil form */}
       <div className={styles.userInfo}>
-        <p>Thanks, {formValues[4]}! Now it&apos;s time to get a reality check.</p>
+        <p>Thanks, {formValues["name"]}! Now it&apos;s time to get a reality check.</p>
         This will take 2-3 minutes
       </div>
 

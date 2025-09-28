@@ -1,6 +1,7 @@
 "use client";
 import { useId } from "react";
-import styles from "@/styles/textInput.module.scss";
+import { ArrowUp } from "lucide-react";
+import styles from "@/styles/textinput.module.scss";
 
 interface TextInputProps {
   label: string;
@@ -10,6 +11,8 @@ interface TextInputProps {
   value: string;
   onChange: (value: string) => void;
   error?: string;
+  onSubmit?: () => void;
+  showButton?: boolean;
 }
 
 export default function TextInput({
@@ -20,25 +23,43 @@ export default function TextInput({
   value,
   onChange,
   error,
+  onSubmit,
+  showButton = true
 }: TextInputProps) {
   const id = useId();
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && onSubmit) {
+      onSubmit();
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
-      <label htmlFor={id} className={styles.label}>
-        {label}
-      </label>
-      <input
-        id={id}
-        className={`${styles.input} ${error ? styles.errorInput : ""}`}
-        type={type}
-        placeholder={placeholder}
-        required={required}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        aria-invalid={!!error}
-        aria-describedby={error ? `${id}-error` : undefined}
-      />
+      <div className={styles.inputContainer}>
+        <input
+          id={id}
+          className={`${styles.input} ${error ? styles.errorInput : ""} ${showButton ? styles.inputWithButton : ""}`}
+          type={type}
+          placeholder={placeholder}
+          required={required}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onKeyDown={handleKeyDown}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${id}-error` : undefined}
+        />
+        {showButton && (
+          <button
+            type="button"
+            className={styles.submitButton}
+            onClick={onSubmit}
+            aria-label="Submit"
+          >
+            <ArrowUp size={20} strokeWidth={2.5} />
+          </button>
+        )}
+      </div>
       {error && (
         <span id={`${id}-error`} className={styles.errorMessage}>
           {error}

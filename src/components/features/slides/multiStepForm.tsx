@@ -4,15 +4,17 @@ import { useState } from "react";
 import TextInput from "@/components/ui/textInput";
 import styles from "@/styles/multistepform.module.scss";
 import Button from "@/components/ui/button";
+import Lottie from "lottie-react";
 
 interface FormStepProps {
   questionText: string;
   inputType?: "text" | "email";
   placeholder?: string;
-  initialValue?: string;            // 👈 ambil default dari parent
+  initialValue?: string;  
   error?: string;
   buttonText: string;
-  onNext?: (value: string) => void; // 👈 kirim value pas submit
+  onNext?: (value: string) => void; 
+  animationData: object;  
 }
 
 export default function FormStep({
@@ -23,6 +25,7 @@ export default function FormStep({
   error,
   buttonText,
   onNext,
+  animationData,
 }: FormStepProps) {
   const [inputValue, setInputValue] = useState(initialValue);
 
@@ -34,9 +37,10 @@ export default function FormStep({
 
   return (
     <div className={styles.container}>
-      <div className={styles.icon}></div>
-
-      <h2 className={styles.question}>{questionText}</h2>
+      <div className={styles.animation}>
+        <Lottie animationData={animationData} loop={true} className={styles.lottie} autoplay={false} />
+      </div>
+      <h1 className={styles.question}>{questionText}</h1>
 
       <TextInput
         label={questionText}
@@ -46,13 +50,14 @@ export default function FormStep({
         onChange={(val) => setInputValue(val)} // simpan lokal
         error={error}
         required
+        onSubmit={handleSubmit}
       />
 
-      <div className={styles.footer}>
+      {/* <div className={styles.footer}>
         <Button variant="purple" onClick={handleSubmit}>
           {buttonText}
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }
